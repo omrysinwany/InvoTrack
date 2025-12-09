@@ -531,13 +531,13 @@ export default function SuppliersPage() {
         if (aDate instanceof Timestamp) dateA = aDate.toDate().getTime();
         else if (typeof aDate === "string" && isValid(parseISO(aDate)))
           dateA = parseISO(aDate).getTime();
-        else if (aDate instanceof Date && isValid(aDate))
+        else if (aDate && typeof aDate === "object" && aDate instanceof Date && isValid(aDate))
           dateA = aDate.getTime();
 
         if (bDate instanceof Timestamp) dateB = bDate.toDate().getTime();
         else if (typeof bDate === "string" && isValid(parseISO(bDate)))
           dateB = parseISO(bDate).getTime();
-        else if (bDate instanceof Date && isValid(bDate))
+        else if (bDate && typeof bDate === "object" && bDate instanceof Date && isValid(bDate))
           dateB = bDate.getTime();
 
         return dateB - dateA;
@@ -566,6 +566,8 @@ export default function SuppliersPage() {
         )
           uploadTimeDate = parseISO(invoice.uploadTime);
         else if (
+          invoice.uploadTime &&
+          typeof invoice.uploadTime === "object" &&
           invoice.uploadTime instanceof Date &&
           isValid(invoice.uploadTime)
         )
