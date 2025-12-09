@@ -615,8 +615,8 @@ export default function SuppliersPage() {
         prev
           ? {
               ...prev,
-              phone: editedContactInfo.phone?.trim() || null,
-              email: editedContactInfo.email?.trim() || null,
+              phone: editedContactInfo.phone?.trim() || undefined,
+              email: editedContactInfo.email?.trim() || undefined,
             }
           : null
       );
