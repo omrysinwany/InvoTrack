@@ -598,7 +598,7 @@ export default function SuppliersPage() {
   };
 
   const handleSaveContactInfo = async () => {
-    if (!selectedSupplier || !user || !user.id) return;
+    if (!selectedSupplier || !selectedSupplier.id || !user || !user.id) return;
     setIsSavingContact(true);
     try {
       await updateSupplierService(
