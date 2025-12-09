@@ -531,14 +531,14 @@ export default function SuppliersPage() {
         if (aDate instanceof Timestamp) dateA = aDate.toDate().getTime();
         else if (typeof aDate === "string" && isValid(parseISO(aDate)))
           dateA = parseISO(aDate).getTime();
-        else if (aDate && typeof aDate === "object" && aDate instanceof Date && isValid(aDate))
-          dateA = aDate.getTime();
+        else if (aDate && typeof aDate === "object" && 'getTime' in aDate && isValid(aDate as Date))
+          dateA = (aDate as Date).getTime();
 
         if (bDate instanceof Timestamp) dateB = bDate.toDate().getTime();
         else if (typeof bDate === "string" && isValid(parseISO(bDate)))
           dateB = parseISO(bDate).getTime();
-        else if (bDate && typeof bDate === "object" && bDate instanceof Date && isValid(bDate))
-          dateB = bDate.getTime();
+        else if (bDate && typeof bDate === "object" && 'getTime' in bDate && isValid(bDate as Date))
+          dateB = (bDate as Date).getTime();
 
         return dateB - dateA;
       });
@@ -568,10 +568,10 @@ export default function SuppliersPage() {
         else if (
           invoice.uploadTime &&
           typeof invoice.uploadTime === "object" &&
-          invoice.uploadTime instanceof Date &&
-          isValid(invoice.uploadTime)
+          'getTime' in invoice.uploadTime &&
+          isValid(invoice.uploadTime as Date)
         )
-          uploadTimeDate = invoice.uploadTime;
+          uploadTimeDate = invoice.uploadTime as Date;
 
         if (uploadTimeDate && isValid(uploadTimeDate)) {
           const monthYear = formatDateDisplay(uploadTimeDate, t, "MMM yyyy");
