@@ -65,6 +65,7 @@ import {
 } from "date-fns";
 import {
   Timestamp,
+  FieldValue,
   collection,
   query,
   where,
@@ -136,7 +137,7 @@ type SortKey =
 type SortDirection = "asc" | "desc";
 
 const formatDateDisplay = (
-  date: Date | string | Timestamp | undefined,
+  date: Date | string | Timestamp | FieldValue | undefined,
   t: (key: string, params?: any) => string,
   f: string = "PP"
 ) => {

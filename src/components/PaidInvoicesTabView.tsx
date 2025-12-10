@@ -89,7 +89,7 @@ type SortKeyPaid =
       | "originalFileName"
       | "uploadTime"
       | "supplierName"
-      | "invoiceDate"
+      | "date"
       | "totalAmount"
       | "paymentMethod"
     >
@@ -168,8 +168,8 @@ export default function PaidInvoicesTabView({
         if (dateInput instanceof Timestamp) dateObj = dateInput.toDate();
         else if (typeof dateInput === "string" && isValid(parseISO(dateInput)))
           dateObj = parseISO(dateInput);
-        else if (dateInput instanceof Date && isValid(dateInput))
-          dateObj = dateInput;
+        else if (typeof dateInput === "object" && 'getTime' in dateInput && isValid(dateInput as unknown as Date))
+          dateObj = dateInput as unknown as Date;
         // FieldValue (that is not a Timestamp) will result in dateObj being null here
 
         if (!dateObj || !isValid(dateObj)) {
@@ -249,19 +249,19 @@ export default function PaidInvoicesTabView({
         startDate.setHours(0, 0, 0, 0);
         fetchedData = fetchedData.filter((inv) => {
           let invDate: Date | null = null;
-          if (inv.invoiceDate) {
-            if (inv.invoiceDate instanceof Timestamp)
-              invDate = inv.invoiceDate.toDate();
+          if (inv.date) {
+            if (inv.date instanceof Timestamp)
+              invDate = inv.date.toDate();
             else if (
-              typeof inv.invoiceDate === "string" &&
-              isValid(parseISO(inv.invoiceDate))
+              typeof inv.date === "string" &&
+              isValid(parseISO(inv.date))
             )
-              invDate = parseISO(inv.invoiceDate);
+              invDate = parseISO(inv.date);
             else if (
-              inv.invoiceDate instanceof Date &&
-              isValid(inv.invoiceDate)
+              typeof inv.date === "object" && 'getTime' in inv.date &&
+              isValid(inv.date as unknown as Date)
             )
-              invDate = inv.invoiceDate;
+              invDate = inv.date as unknown as Date;
           } else if (inv.uploadTime) {
             if (inv.uploadTime instanceof Timestamp)
               invDate = inv.uploadTime.toDate();
@@ -270,8 +270,8 @@ export default function PaidInvoicesTabView({
               isValid(parseISO(inv.uploadTime))
             )
               invDate = parseISO(inv.uploadTime);
-            else if (inv.uploadTime instanceof Date && isValid(inv.uploadTime))
-              invDate = inv.uploadTime;
+            else if (typeof inv.uploadTime === "object" && 'getTime' in inv.uploadTime && isValid(inv.uploadTime as unknown as Date))
+              invDate = inv.uploadTime as unknown as Date;
           }
           return invDate
             ? isAfter(invDate, startDate) || isSameDay(invDate, startDate)
@@ -283,19 +283,19 @@ export default function PaidInvoicesTabView({
         endDate.setHours(23, 59, 59, 999);
         fetchedData = fetchedData.filter((inv) => {
           let invDate: Date | null = null;
-          if (inv.invoiceDate) {
-            if (inv.invoiceDate instanceof Timestamp)
-              invDate = inv.invoiceDate.toDate();
+          if (inv.date) {
+            if (inv.date instanceof Timestamp)
+              invDate = inv.date.toDate();
             else if (
-              typeof inv.invoiceDate === "string" &&
-              isValid(parseISO(inv.invoiceDate))
+              typeof inv.date === "string" &&
+              isValid(parseISO(inv.date))
             )
-              invDate = parseISO(inv.invoiceDate);
+              invDate = parseISO(inv.date);
             else if (
-              inv.invoiceDate instanceof Date &&
-              isValid(inv.invoiceDate)
+              typeof inv.date === "object" && 'getTime' in inv.date &&
+              isValid(inv.date as unknown as Date)
             )
-              invDate = inv.invoiceDate;
+              invDate = inv.date as unknown as Date;
           } else if (inv.uploadTime) {
             if (inv.uploadTime instanceof Timestamp)
               invDate = inv.uploadTime.toDate();
@@ -304,8 +304,8 @@ export default function PaidInvoicesTabView({
               isValid(parseISO(inv.uploadTime))
             )
               invDate = parseISO(inv.uploadTime);
-            else if (inv.uploadTime instanceof Date && isValid(inv.uploadTime))
-              invDate = inv.uploadTime;
+            else if (typeof inv.uploadTime === "object" && 'getTime' in inv.uploadTime && isValid(inv.uploadTime as unknown as Date))
+              invDate = inv.uploadTime as unknown as Date;
           }
           return invDate
             ? isBefore(invDate, endDate) || isSameDay(invDate, endDate)
@@ -334,7 +334,7 @@ export default function PaidInvoicesTabView({
 
           if (
             currentSortKey === "uploadTime" ||
-            currentSortKey === "invoiceDate"
+            currentSortKey === "date"
           ) {
             let dateA = 0;
             let dateB = 0;
@@ -348,8 +348,8 @@ export default function PaidInvoicesTabView({
                 isValid(parseISO(aDateVal))
               )
                 dateA = parseISO(aDateVal).getTime();
-              else if (aDateVal instanceof Date && isValid(aDateVal))
-                dateA = aDateVal.getTime();
+              else if (typeof aDateVal === "object" && 'getTime' in aDateVal && isValid(aDateVal as unknown as Date))
+                dateA = (aDateVal as unknown as Date).getTime();
             }
             if (bDateVal) {
               if (bDateVal instanceof Timestamp)
@@ -359,8 +359,8 @@ export default function PaidInvoicesTabView({
                 isValid(parseISO(bDateVal))
               )
                 dateB = parseISO(bDateVal).getTime();
-              else if (bDateVal instanceof Date && isValid(bDateVal))
-                dateB = bDateVal.getTime();
+              else if (typeof bDateVal === "object" && 'getTime' in bDateVal && isValid(bDateVal as unknown as Date))
+                dateB = (bDateVal as unknown as Date).getTime();
             }
             comparison = dateA - dateB;
           } else if (typeof valA === "number" && typeof valB === "number") {
@@ -677,16 +677,16 @@ export default function PaidInvoicesTabView({
                         {formatDateForDisplay(item.uploadTime)}
                       </TableCell>
                     )}
-                    {visibleColumns.invoiceDate && (
+                    {visibleColumns.date && (
                       <TableCell
                         className={cn(
                           "px-2 sm:px-4 py-2 text-center",
-                          columnDefinitions.find((h) => h.key === "invoiceDate")
+                          columnDefinitions.find((h) => h.key === "date")
                             ?.mobileHidden && "hidden sm:table-cell"
                         )}
                       >
-                        {item.invoiceDate
-                          ? formatDateForDisplay(item.invoiceDate, "PP")
+                        {item.date
+                          ? formatDateForDisplay(item.date, "PP")
                           : t("invoices_na")}
                       </TableCell>
                     )}
