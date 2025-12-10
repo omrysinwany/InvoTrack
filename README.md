@@ -12,8 +12,12 @@
 
 A full-stack SaaS platform built with **Next.js 16**, **Firebase**, and **Google Genkit**. It bridges the gap between physical paperwork and digital business management by automating document processing and synchronizing inventory across systems.
 
-![InvoTrack Dashboard Preview](public/dashboard-preview.png)
-*(Note: Add a screenshot of your dashboard here for better engagement)*
+### 🌐 Live Demo
+You can try the live application here: [**invo-track-seven.vercel.app**](https://invo-track-seven.vercel.app)
+
+
+https://github.com/user-attachments/assets/6f0b3ced-4f30-4b92-b497-f3a191630d41
+
 
 ## 💡 How It Works
 
@@ -88,4 +92,5 @@ Feel free to reach out for collaboration or opportunities!
 ---
 
 **Built with Next.js, TypeScript, and Firebase**
+
 
