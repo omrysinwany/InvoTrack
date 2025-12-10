@@ -1,5 +1,13 @@
 # InvoTrack
 
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat&logo=typescript&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-Backend-FFCA28?style=flat&logo=firebase&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/Google_Gemini-AI-8E75B2?style=flat&logo=google-gemini&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
 > Smart inventory & financial management system. Automates stock updates from delivery notes via GenAI, provides actionable business insights, and syncs real-time with POS.
 
 A full-stack SaaS platform built with **Next.js 16**, **Firebase**, and **Google Genkit**. It bridges the gap between physical paperwork and digital business management by automating document processing and synchronizing inventory across systems.
@@ -80,3 +88,4 @@ Feel free to reach out for collaboration or opportunities!
 ---
 
 **Built with Next.js, TypeScript, and Firebase**
+
