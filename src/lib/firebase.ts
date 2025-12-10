@@ -50,7 +50,6 @@ const auth = getAuth(app);
 // IMPORTANT: Must be initialized BEFORE first use
 const db: Firestore = initializeFirestore(app, {
   experimentalForceLongPolling: true, // Force long polling for serverless/Vercel compatibility
-  experimentalAutoDetectLongPolling: true,
   ignoreUndefinedProperties: true, // Ignore undefined properties in documents
 });
 
