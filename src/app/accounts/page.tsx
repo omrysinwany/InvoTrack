@@ -1033,7 +1033,7 @@ export default function AccountsPage() {
           </CardContent>
         </Card>
 
-        <Link href="/accounts/other-expenses" passHref>
+        <Link href="/accounts/other-expenses">
           <Card className="shadow-md scale-fade-in delay-400 cursor-pointer hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex justify-between items-center">

@@ -44,7 +44,7 @@ export default function ClientLayoutWrapper({
       <AuthProvider>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

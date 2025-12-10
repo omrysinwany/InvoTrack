@@ -39,3 +39,6 @@ next-env.d.ts
 
 .genkit/*
 .env*
+
+# Firebase Admin Service Account Key (NEVER commit this!)
+firebase-admin-key.json

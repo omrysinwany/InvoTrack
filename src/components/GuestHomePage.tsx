@@ -5,14 +5,27 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { LogIn, UserPlus, Package, ScanLine, BarChart2 } from 'lucide-react';
+import { LogIn, UserPlus, Package, ScanLine, BarChart2, Eye } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslation } from '@/hooks/useTranslation';
 import styles from '@/app/page.module.scss'; // Import shared styles
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 const GuestHomePage: React.FC = () => {
   const { t } = useTranslation();
+  const { loginWithEmail } = useAuth();
+  const router = useRouter();
+
+  async function handleDemoLogin() {
+    try {
+      await loginWithEmail({ email: "demo@gmail.com", password: "demodemo" });
+      router.push("/");
+    } catch (error) {
+      // Error toast is handled by AuthContext
+    }
+  }
 
   return (
     <div className={cn("flex flex-col items-center justify-center min-h-[calc(100vh-var(--header-height,4rem)-8rem)] p-4 sm:p-6 md:p-8", styles.homeContainerGradient)}>
@@ -24,6 +37,16 @@ const GuestHomePage: React.FC = () => {
         <p className="text-lg sm:text-xl text-muted-foreground mb-8 scale-fade-in delay-200">
           {t('guest_home_welcome_subtitle')}
         </p>
+
+        <div className="mb-6 scale-fade-in delay-250">
+          <Button
+            onClick={handleDemoLogin}
+            size="lg"
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-md hover:shadow-lg transition-shadow transform hover:scale-105"
+          >
+            <Eye className="mr-2 h-5 w-5" /> Live Demo
+          </Button>
+        </div>
 
         <Card className="bg-card/80 backdrop-blur-sm border-border/50 shadow-xl scale-fade-in delay-300">
           <CardHeader>

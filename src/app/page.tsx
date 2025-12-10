@@ -959,13 +959,10 @@ export default function Home() {
         <p className="text-xs text-muted-foreground">{item.time}</p>
       </div>
       {item.link && (
-        <Link href={item.link} passHref legacyBehavior>
-          <a
-            aria-label={t("home_recent_activity_view_details")}
-            className="p-1 text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </a>
+        <Link href={item.link} aria-label={t("home_recent_activity_view_details")} className="p-1 text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+
+          <ChevronRight className="h-5 w-5" />
+
         </Link>
       )}
     </Card>

@@ -14,7 +14,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "server": "node server.js",
-    "server:dev": "nodemon server.js"
+    "server:dev": "nodemon server.js",
+    "duplicate-data": "tsx scripts/duplicate-user-data.ts"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.6.2",
