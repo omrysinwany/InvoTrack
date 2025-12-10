@@ -643,7 +643,7 @@ export default function SuppliersPage() {
   };
 
   const handleSavePaymentTerms = async () => {
-    if (!selectedSupplier || !user || !user.id) return;
+    if (!selectedSupplier || !selectedSupplier.id || !user || !user.id) return;
     setIsSavingContact(true);
     let finalPaymentTerm: string | null;
     if (editedPaymentTermsOption === "custom") {
