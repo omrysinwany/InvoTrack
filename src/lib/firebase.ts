@@ -6,7 +6,7 @@ import {
   FirebaseApp,
   FirebaseOptions,
 } from "firebase/app";
-import { getFirestore, Firestore } from "firebase/firestore";
+import { getFirestore, Firestore, initializeFirestore } from "firebase/firestore";
 import { getAuth, Auth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage, FirebaseStorage } from "firebase/storage";
 import { getFunctions, Functions } from "firebase/functions";
@@ -45,7 +45,20 @@ if (!getApps().length) {
 }
 
 const auth = getAuth(app);
-const db = getFirestore(app);
+
+// Initialize Firestore with settings optimized for Vercel/serverless environments
+let db: Firestore;
+try {
+  // Try to get existing instance first
+  db = getFirestore(app);
+} catch (error) {
+  // If not initialized, initialize with custom settings
+  db = initializeFirestore(app, {
+    experimentalForceLongPolling: true, // Better for serverless/Vercel
+    experimentalAutoDetectLongPolling: true,
+  });
+}
+
 const storage = getStorage(app);
 
 // It's better to specify the region for functions if you know it
