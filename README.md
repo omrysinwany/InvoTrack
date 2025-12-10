@@ -1,85 +1,71 @@
 # InvoTrack
 
-> AI-powered inventory and document management system for small businesses
+> Smart inventory & financial management system. Automates stock updates from delivery notes via GenAI, provides actionable business insights, and syncs real-time with POS.
 
-A full-stack web application built with Next.js 15, Firebase, and Google Gemini AI. Automates invoice processing, manages inventory, and integrates with POS systems.
+A full-stack SaaS platform built with **Next.js 16**, **Firebase**, and **Google Genkit**. It bridges the gap between physical paperwork and digital business management by automating document processing and synchronizing inventory across systems.
 
-## ✨ Features
+![InvoTrack Dashboard Preview](public/dashboard-preview.png)
+*(Note: Add a screenshot of your dashboard here for better engagement)*
 
-- **AI Document Scanning** - Automatically extract data from invoices and delivery notes using Gemini AI
-- **Inventory Management** - Track stock levels with low inventory alerts
-- **POS Integration** - Sync with Caspit and Hashavshevet systems
-- **Analytics Dashboard** - Real-time KPIs and business insights
-- **Barcode Scanner** - Quick product lookup and management
-- **Expense Tracking** - Monitor and categorize business expenses
-- **Multi-language** - Supports Hebrew and English
-- **Dark Mode** - Full dark theme support
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
+## 💡 How It Works
+
+InvoTrack creates a seamless automated workflow for small businesses:
+
+1.  **AI Document Agents**: Uses Google Genkit to parse Hebrew invoices and delivery notes with high precision, extracting line items, prices, and supplier details.
+2.  **Automated Inventory Control**: Scanned delivery notes immediately update stock levels in the system, eliminating manual data entry errors.
+3.  **Bi-Directional POS Sync**: Real-time synchronization with external POS systems (Caspit, Hashavshevet) ensures stock levels and prices are always accurate across all channels.
+4.  **360° Business Intelligence**: Aggregates data into a visual dashboard enabling tracking of expenses, supplier payments, and real-time profitability (KPIs).
+
+## ✨ Key Features
+
+- **Generative AI Parsing** - Extracts structured data from images (Invoices/Delivery Notes) using Gemini AI models.
+- **Smart Inventory Management** - Automatic stock adjustments based on document scans and low-inventory alerts.
+- **POS Integrations** - Plugin-based architecture supporting sync with **Caspit** and **Hashavshevet**.
+- **Financial Control** - Track expenses, manage supplier payments ("Paid"/"Pending"), and monitor cash flow.
+- **Analytics Dashboard** - Real-time graphs for monthly expenses, revenue, and top-selling items.
+- **Barcode Scanner** - Built-in scanner for quick product lookup and management.
+- **Localization** - Full support for Hebrew (RTL) and English currencies and date formats.
 
 ## 🛠️ Tech Stack
 
 **Frontend:**
-- Next.js 15 (App Router)
-- React 18
+- **Next.js 16** (App Router & Server Actions)
+- **React 19**
 - TypeScript
-- Tailwind CSS
-- Radix UI Components
+- Tailwind CSS & Shadcn UI
+- Recharts (Analytics)
 
-**Backend:**
+**Backend & AI:**
+- **Google Genkit** (AI Agent Framework)
+- **Google Gemini** (LLM)
 - Firebase (Firestore, Auth, Storage)
-- Next.js Server Actions
-- Google Gemini AI (Genkit)
+- Node.js Server Actions
 
-**State Management:**
-- React Query
-- Context API
-
-## 🚀 Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd studio
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-
-   Copy `.env.example` to `.env.local` and fill in your Firebase and Google AI credentials.
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-   Open [http://localhost:9002](http://localhost:9002)
+**Architecture:**
+- **Adapter Pattern** - For scalable POS system integrations.
+- **Server Actions** - For type-safe backend logic execution.
+- **React Query** - For optimized server state management.
 
 ## 📁 Project Structure
 
-```
+```bash
 src/
-├── app/              # Next.js pages and routes
-├── components/       # Reusable React components
-├── actions/          # Server Actions
-├── services/         # Business logic and API calls
-├── contexts/         # React Context providers
+├── app/              # Next.js 16 App Router pages
+├── ai/               # Genkit flows and prompt engineering
+├── actions/          # Server Actions (Backend logic)
+├── services/         # Business logic & POS Adapters
+├── components/       # Reusable UI components (Shadcn)
 ├── hooks/            # Custom React hooks
-├── lib/              # Utility functions
-├── ai/               # Gemini AI integration
-└── locales/          # i18n translations
+├── lib/              # Utility functions & Firebase config
+└── locales/          # i18n translation files
 ```
 
 ## 🎯 Key Technical Highlights
 
-- **Modern Architecture** - Next.js 15 App Router with Server Actions
-- **AI Integration** - Google Gemini for intelligent document processing
-- **Real-time Data** - Firebase Firestore for instant synchronization
-- **Type Safety** - Full TypeScript implementation
-- **Performance** - React Query for optimized data fetching and caching
+- **Cutting-Edge Stack**: Built on the latest **Next.js 16** and **React 19**, utilizing modern features like Server Components and Actions.
+- **Robust AI Engineering**: Implements retry mechanisms and exponential backoff for AI flows to ensure reliability in production.
+- **Scalable Architecture**: The POS integration layer uses the **Factory and Adapter patterns**, making it easy to add new POS providers without changing core logic.
+- **Type Safety**: End-to-end type safety with **TypeScript** and **Zod** schema validation for AI outputs.
 
 ## 📄 License
 
