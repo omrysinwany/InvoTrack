@@ -47,17 +47,12 @@ if (!getApps().length) {
 const auth = getAuth(app);
 
 // Initialize Firestore with settings optimized for Vercel/serverless environments
-let db: Firestore;
-try {
-  // Try to get existing instance first
-  db = getFirestore(app);
-} catch (error) {
-  // If not initialized, initialize with custom settings
-  db = initializeFirestore(app, {
-    experimentalForceLongPolling: true, // Better for serverless/Vercel
-    experimentalAutoDetectLongPolling: true,
-  });
-}
+// IMPORTANT: Must be initialized BEFORE first use
+const db: Firestore = initializeFirestore(app, {
+  experimentalForceLongPolling: true, // Force long polling for serverless/Vercel compatibility
+  experimentalAutoDetectLongPolling: true,
+  ignoreUndefinedProperties: true, // Ignore undefined properties in documents
+});
 
 const storage = getStorage(app);
 
