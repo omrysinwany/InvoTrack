@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import { LogIn, ChromeIcon, Loader2 } from "lucide-react";
+import { LogIn, ChromeIcon, Loader2, Eye } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const formSchema = z.object({
@@ -83,6 +83,16 @@ export default function LoginPage() {
     try {
       await signInWithGoogle();
       // Navigation is handled by processFirebaseUser or useEffect
+    } catch (error) {
+      // Error toast is handled by AuthContext
+    }
+  }
+
+  async function handleDemoLogin() {
+    try {
+      form.setValue("email", "demo@gmail.com");
+      form.setValue("password", "demodemo");
+      await loginWithEmail({ email: "demo@gmail.com", password: "demodemo" });
     } catch (error) {
       // Error toast is handled by AuthContext
     }
@@ -168,6 +178,22 @@ export default function LoginPage() {
           >
             <ChromeIcon className="mr-2 h-4 w-4" />
             {t("login_google_button")}
+          </Button>
+
+          <div className="my-4 flex items-center text-xs text-muted-foreground">
+            <div className="flex-grow border-t border-border"></div>
+            <span className="mx-2">OR</span>
+            <div className="flex-grow border-t border-border"></div>
+          </div>
+
+          <Button
+            variant="default"
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+            onClick={handleDemoLogin}
+            disabled={loading}
+          >
+            <Eye className="mr-2 h-4 w-4" />
+            Try Demo Account
           </Button>
 
           <div className="mt-6 text-center text-sm">
