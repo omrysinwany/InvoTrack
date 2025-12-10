@@ -147,8 +147,8 @@ const formatDateDisplay = (
       dateObj = date.toDate();
     } else if (typeof date === "string") {
       dateObj = parseISO(date);
-    } else if (date instanceof Date) {
-      dateObj = date;
+    } else if (typeof date === "object" && 'getTime' in date) {
+      dateObj = date as Date;
     } else {
       return t("suppliers_invalid_date");
     }
@@ -398,10 +398,11 @@ export default function SuppliersPage() {
             )
               dateA = parseISO(dateValForCheck).getTime();
             else if (
-              dateValForCheck instanceof Date &&
-              isValid(dateValForCheck)
+              typeof dateValForCheck === "object" &&
+              'getTime' in dateValForCheck &&
+              isValid(dateValForCheck as Date)
             )
-              dateA = dateValForCheck.getTime();
+              dateA = (dateValForCheck as Date).getTime();
           }
           let dateB = 0;
           const bDateVal = b.lastActivityDate;
@@ -415,10 +416,11 @@ export default function SuppliersPage() {
             )
               dateB = parseISO(dateValForCheck).getTime();
             else if (
-              dateValForCheck instanceof Date &&
-              isValid(dateValForCheck)
+              typeof dateValForCheck === "object" &&
+              'getTime' in dateValForCheck &&
+              isValid(dateValForCheck as Date)
             )
-              dateB = dateValForCheck.getTime();
+              dateB = (dateValForCheck as Date).getTime();
           }
           valA = dateA as any;
           valB = dateB as any;
@@ -759,8 +761,8 @@ export default function SuppliersPage() {
         uploadTimeDate = invoice.uploadTime.toDate();
       } else if (typeof invoice.uploadTime === "string") {
         uploadTimeDate = parseISO(invoice.uploadTime);
-      } else if (invoice.uploadTime instanceof Date) {
-        uploadTimeDate = invoice.uploadTime;
+      } else if (typeof invoice.uploadTime === "object" && 'getTime' in invoice.uploadTime) {
+        uploadTimeDate = invoice.uploadTime as Date;
       }
 
       if (!uploadTimeDate || !isValid(uploadTimeDate)) return false;
