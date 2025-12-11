@@ -87,10 +87,13 @@ This project is [MIT](LICENSE) licensed.
 
 **Omry** - Full-Stack Developer
 
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/omry-sinwany)
+
 Feel free to reach out for collaboration or opportunities!
 
 ---
 
 **Built with Next.js, TypeScript, and Firebase**
+
 
 
