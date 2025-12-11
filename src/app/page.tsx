@@ -758,13 +758,17 @@ export default function Home() {
           const timeA = a.uploadTime
             ? (a.uploadTime instanceof Timestamp
                 ? a.uploadTime.toDate()
-                : parseISO(a.uploadTime as string)
+                : typeof a.uploadTime === "string" && isValid(parseISO(a.uploadTime))
+                ? parseISO(a.uploadTime)
+                : new Date(0)
               ).getTime()
             : 0;
           const timeB = b.uploadTime
             ? (b.uploadTime instanceof Timestamp
                 ? b.uploadTime.toDate()
-                : parseISO(b.uploadTime as string)
+                : typeof b.uploadTime === "string" && isValid(parseISO(b.uploadTime))
+                ? parseISO(b.uploadTime)
+                : new Date(0)
               ).getTime()
             : 0;
           return timeB - timeA;
