@@ -1,3 +1,4 @@
+// Use Firestore Lite for Vercel compatibility
 import {
   addDoc,
   collection,
@@ -26,7 +27,7 @@ import {
   arrayRemove,
   DocumentReference,
   CollectionReference,
-} from "firebase/firestore";
+} from "firebase/firestore/lite";
 import { db } from "@/lib/firebase";
 import {
   upsertPosProductAction,

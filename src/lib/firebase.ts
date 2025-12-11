@@ -6,7 +6,11 @@ import {
   FirebaseApp,
   FirebaseOptions,
 } from "firebase/app";
-import { getFirestore, Firestore, initializeFirestore } from "firebase/firestore";
+// Use Firestore Lite for Vercel compatibility (no offline persistence)
+import {
+  getFirestore,
+  Firestore,
+} from "firebase/firestore/lite";
 import { getAuth, Auth, GoogleAuthProvider } from "firebase/auth";
 import { getStorage, FirebaseStorage } from "firebase/storage";
 import { getFunctions, Functions } from "firebase/functions";
@@ -46,12 +50,9 @@ if (!getApps().length) {
 
 const auth = getAuth(app);
 
-// Initialize Firestore with settings optimized for Vercel/serverless environments
-// IMPORTANT: Must be initialized BEFORE first use
-const db: Firestore = initializeFirestore(app, {
-  experimentalForceLongPolling: true, // Force long polling for serverless/Vercel compatibility
-  ignoreUndefinedProperties: true, // Ignore undefined properties in documents
-});
+// Initialize Firestore Lite - works on Vercel without offline persistence
+const db: Firestore = getFirestore(app);
+console.log("Firestore Lite initialized successfully for Vercel.");
 
 const storage = getStorage(app);
 

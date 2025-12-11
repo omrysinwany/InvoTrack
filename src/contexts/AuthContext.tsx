@@ -10,17 +10,13 @@ import React, {
   useCallback,
 } from "react";
 import type { User } from "@/services/types";
-import { saveUserToFirestore } from "@/services/backend";
+import { saveUserToFirestoreAction } from "@/actions/user-actions";
 import { auth as firebaseAuth, GoogleAuthProvider } from "@/lib/firebase";
 import * as fbAuth from "firebase/auth"; // Import the entire module
 import {
-  doc,
-  serverTimestamp,
   Timestamp,
   FieldValue,
-  setDoc,
 } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useRouter } from "next/navigation";
@@ -99,26 +95,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             firebaseUser.email?.split("@")[0] ||
             t("user_fallback_name");
 
-          const userToSave: User = {
+          // Create app user object for state immediately
+          const appUser: User = {
             id: firebaseUser.uid,
             email: firebaseUser.email || undefined,
             username: usernameForUserObject,
-            lastLoginAt: serverTimestamp() as FieldValue,
-          };
-
-          // This function will create or update the user document.
-          await saveUserToFirestore({
-            ...firebaseUser,
-            displayName: usernameForUserObject,
-          });
-
-          // We already have all the info we need, no need to re-fetch.
-          const appUser: User = {
-            ...userToSave,
-            lastLoginAt: Timestamp.now(), // Use a client-side timestamp for the immediate state update.
+            lastLoginAt: Timestamp.now(),
           };
 
           setUser(appUser);
+
+          // Save user to Firestore in background (non-blocking)
+          saveUserToFirestoreAction({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            displayName: usernameForUserObject,
+          }).catch((error) => {
+            console.error("[AuthContext] Background save to Firestore failed:", error);
+            // Don't block login - just log the error
+          });
           console.log("[AuthContext] App user state set:", appUser);
 
           if (showSuccessToastOnNewAuth) {

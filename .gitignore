@@ -37,8 +37,20 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# SWC compiler cache
+.swc
+
 .genkit/*
-.env*
+
+# Environment variables (NEVER commit these!)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+# Allow .env.example to be tracked
+!.env.example
 
 # Firebase Admin Service Account Key (NEVER commit this!)
 firebase-admin-key.json
